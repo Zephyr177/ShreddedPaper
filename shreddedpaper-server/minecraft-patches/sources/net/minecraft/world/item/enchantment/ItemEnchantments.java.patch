@@ -1,15 +1,15 @@
---- a/net/minecraft/world/item/enchantment/ItemEnchantments.java
-+++ b/net/minecraft/world/item/enchantment/ItemEnchantments.java
-@@ -101,6 +101,12 @@ public class ItemEnchantments implements TooltipProvider {
-         return Collections.unmodifiableSet(this.enchantments.object2IntEntrySet());
-     }
- 
-+    // ShreddedPaper start - reduce enchantment allocations
-+    public it.unimi.dsi.fastutil.objects.ObjectSortedSet<Entry<Holder<Enchantment>>> leaf$entrySet() {
-+        return this.enchantments.object2IntEntrySet();
-+    }
-+    // ShreddedPaper end - reduce enchantment allocations
-+
-     public int size() {
-         return this.enchantments.size();
-     }
+--- a/net/minecraft/world/item/enchantment/ItemEnchantments.java
++++ b/net/minecraft/world/item/enchantment/ItemEnchantments.java
+@@ -101,6 +101,12 @@ public class ItemEnchantments implements TooltipProvider {
+         return Collections.unmodifiableSet(this.enchantments.object2IntEntrySet());
+     }
+ 
++    // ShreddedPaper start - reduce enchantment allocations
++    public it.unimi.dsi.fastutil.objects.ObjectSortedSet<Entry<Holder<Enchantment>>> leaf$entrySet() {
++        return this.enchantments.object2IntEntrySet();
++    }
++    // ShreddedPaper end - reduce enchantment allocations
++
+     public int size() {
+         return this.enchantments.size();
+     }
