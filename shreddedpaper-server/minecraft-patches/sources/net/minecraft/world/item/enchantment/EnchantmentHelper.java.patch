@@ -1,0 +1,20 @@
+--- a/net/minecraft/world/item/enchantment/EnchantmentHelper.java
++++ b/net/minecraft/world/item/enchantment/EnchantmentHelper.java
+@@ -133,7 +133,7 @@ public class EnchantmentHelper {
+     private static void runIterationOnItem(final ItemStack piece, final EnchantmentHelper.EnchantmentVisitor method) {
+         ItemEnchantments enchantments = piece.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+ 
+-        for (Entry<Holder<Enchantment>> entry : enchantments.entrySet()) {
++        for (Entry<Holder<Enchantment>> entry : enchantments.leaf$entrySet()) { // ShreddedPaper - reduce enchantment allocations
+             method.accept(entry.getKey(), entry.getIntValue());
+         }
+     }
+@@ -146,7 +146,7 @@ public class EnchantmentHelper {
+             if (itemEnchantments != null && !itemEnchantments.isEmpty()) {
+                 EnchantedItemInUse itemInUse = new EnchantedItemInUse(piece, slot, owner);
+ 
+-                for (Entry<Holder<Enchantment>> entry : itemEnchantments.entrySet()) {
++                for (Entry<Holder<Enchantment>> entry : itemEnchantments.leaf$entrySet()) { // ShreddedPaper - reduce enchantment allocations
+                     Holder<Enchantment> enchantment = entry.getKey();
+                     if (enchantment.value().matchingSlot(slot)) {
+                         method.accept(enchantment, entry.getIntValue(), itemInUse);
