@@ -1,7 +1,5 @@
 --- a/net/minecraft/world/entity/ExperienceOrb.java
-
 +++ b/net/minecraft/world/entity/ExperienceOrb.java
-
 @@ -247,9 +_,14 @@ public class ExperienceOrb extends Entity {
 
  

@@ -1,7 +1,5 @@
 --- a/net/minecraft/world/item/enchantment/Enchantment.java
-
 +++ b/net/minecraft/world/item/enchantment/Enchantment.java
-
 @@ -124,7 +_,14 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
 
      }

@@ -1,7 +1,5 @@
 --- a/net/minecraft/world/item/enchantment/ItemEnchantments.java
-
 +++ b/net/minecraft/world/item/enchantment/ItemEnchantments.java
-
 @@ -101,6 +_,12 @@ public class ItemEnchantments implements TooltipProvider {
 
          return Collections.unmodifiableSet(this.enchantments.object2IntEntrySet());

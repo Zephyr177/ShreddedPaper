@@ -1,7 +1,5 @@
 --- a/net/minecraft/core/Vec3i.java
-
 +++ b/net/minecraft/core/Vec3i.java
-
 @@ -47,7 +_,12 @@ public class Vec3i implements Comparable<Vec3i> {
 
  

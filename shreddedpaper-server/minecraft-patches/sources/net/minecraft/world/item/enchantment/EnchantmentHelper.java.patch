@@ -1,7 +1,5 @@
 --- a/net/minecraft/world/item/enchantment/EnchantmentHelper.java
-
 +++ b/net/minecraft/world/item/enchantment/EnchantmentHelper.java
-
 @@ -133,7 +_,7 @@ public class EnchantmentHelper {
 
      private static void runIterationOnItem(final ItemStack piece, final EnchantmentHelper.EnchantmentVisitor method) {

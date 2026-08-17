@@ -1,7 +1,5 @@
 --- a/net/minecraft/world/entity/ai/behavior/BehaviorUtils.java
-
 +++ b/net/minecraft/world/entity/ai/behavior/BehaviorUtils.java
-
 @@ -126,10 +_,33 @@ public class BehaviorUtils {
 
  

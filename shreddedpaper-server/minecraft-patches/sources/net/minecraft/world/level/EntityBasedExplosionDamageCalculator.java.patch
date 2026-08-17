@@ -1,7 +1,5 @@
 --- a/net/minecraft/world/level/EntityBasedExplosionDamageCalculator.java
-
 +++ b/net/minecraft/world/level/EntityBasedExplosionDamageCalculator.java
-
 @@ -17,8 +_,20 @@ public class EntityBasedExplosionDamageCalculator extends ExplosionDamageCalcula
 
      public Optional<Float> getBlockExplosionResistance(
