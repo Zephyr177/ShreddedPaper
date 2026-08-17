@@ -16,7 +16,7 @@
      }
  
      public boolean isPrimaryItem(final ItemStack item) {
-@@ -199,9 +199,15 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
+@@ -199,9 +206,15 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
      }
  
      public boolean isImmuneToDamage(final ServerLevel serverLevel, final int enchantmentLevel, final Entity victim, final DamageSource source) {
@@ -33,7 +33,7 @@
              if (filteredEffect.matches(context)) {
                  return true;
              }
-@@ -403,8 +409,14 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
+@@ -403,8 +416,14 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
      }
  
      public void tick(final ServerLevel serverLevel, final int enchantmentLevel, final EnchantedItemInUse item, final Entity entity) {
