@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/VarInt.java
 +++ b/net/minecraft/network/VarInt.java
-@@ -53,15 +53,39 @@ public class VarInt {
+@@ -53,15 +_,39 @@ public class VarInt {
      public static ByteBuf write(final ByteBuf output, int value) {
 -        // Paper start - Optimize VarInts
 -        // Peel the one and two byte count cases explicitly as they are the most common VarInt sizes
