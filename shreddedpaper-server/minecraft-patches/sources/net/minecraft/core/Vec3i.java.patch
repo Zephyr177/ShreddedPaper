@@ -1,16 +1,32 @@
---- a/net/minecraft/core/Vec3i.java
-+++ b/net/minecraft/core/Vec3i.java
-@@ -47,7 +47,12 @@ public class Vec3i implements Comparable<Vec3i> {
- 
-     @Override
-     public final int hashCode() { // Paper - Perf: Final for inline
--        return (this.getY() + this.getZ() * 31) * 31 + this.getX();
-+        // ShreddedPaper start - Optimize Vec3i hashing
-+        // The vanilla hash formula can produce severe collisions for structured BlockPos distributions.
-+        // Use a mixed coordinate hash to avoid common linear collision patterns.
-+        final int hash = (this.x * 31337 + this.y * 961 + this.z) * 0x9E3779B9;
-+        return hash ^ (hash >>> 16);
-+        // ShreddedPaper end - Optimize Vec3i hashing
-     }
- 
-     @Override
+--- a/net/minecraft/core/Vec3i.java
+
++++ b/net/minecraft/core/Vec3i.java
+
+@@ -47,7 +_,12 @@ public class Vec3i implements Comparable<Vec3i> {
+
+ 
+
+     @Override
+
+     public final int hashCode() { // Paper - Perf: Final for inline
+
+-        return (this.getY() + this.getZ() * 31) * 31 + this.getX();
+
++        // ShreddedPaper start - Optimize Vec3i hashing
+
++        // The vanilla hash formula can produce severe collisions for structured BlockPos distributions.
+
++        // Use a mixed coordinate hash to avoid common linear collision patterns.
+
++        final int hash = (this.x * 31337 + this.y * 961 + this.z) * 0x9E3779B9;
+
++        return hash ^ (hash >>> 16);
+
++        // ShreddedPaper end - Optimize Vec3i hashing
+
+     }
+
+ 
+
+     @Override
+

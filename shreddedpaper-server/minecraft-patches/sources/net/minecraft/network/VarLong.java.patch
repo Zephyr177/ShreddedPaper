@@ -1,6 +1,6 @@
 --- a/net/minecraft/network/VarLong.java
 +++ b/net/minecraft/network/VarLong.java
-@@ -9,6 +9,18 @@ public class VarLong {
+@@ -9,6 +_,18 @@ public class VarLong {
      private static final int DATA_BITS_PER_BYTE = 7;
  
      public static int getByteSize(final long value) {
@@ -19,7 +19,7 @@
          for (int i = 1; i < MAX_VARLONG_SIZE; i++) {
              if ((value & -1L << i * DATA_BITS_PER_BYTE) == 0L) {
                  return i;
-@@ -40,5 +52,115 @@ public class VarLong {
+@@ -40,5 +_,115 @@ public class VarLong {
  
      public static ByteBuf write(final ByteBuf output, long value) {
 +        // ShreddedPaper start - Velocity - optimized VarLong#write

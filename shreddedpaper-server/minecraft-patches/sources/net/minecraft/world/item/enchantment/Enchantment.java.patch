@@ -1,51 +1,102 @@
---- a/net/minecraft/world/item/enchantment/Enchantment.java
-+++ b/net/minecraft/world/item/enchantment/Enchantment.java
-@@ -124,7 +124,14 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
-     }
- 
-     public boolean matchingSlot(final EquipmentSlot slot) {
--        return this.definition.slots().stream().anyMatch(group -> group.test(slot));
-+        // ShreddedPaper start - Remove stream in matchingSlot
-+        for (EquipmentSlotGroup group : this.definition.slots()) {
-+            if (group.test(slot)) {
-+                return true;
-+            }
-+        }
-+        return false;
-+        // ShreddedPaper end - Remove stream in matchingSlot
-     }
- 
-     public boolean isPrimaryItem(final ItemStack item) {
-@@ -199,9 +199,15 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
-     }
- 
-     public boolean isImmuneToDamage(final ServerLevel serverLevel, final int enchantmentLevel, final Entity victim, final DamageSource source) {
-+        // ShreddedPaper start - reduce enchantment allocations
-+        List<ConditionalEffect<DamageImmunity>> damageImmunityEffects = this.getEffects(EnchantmentEffectComponents.DAMAGE_IMMUNITY);
-+        if (damageImmunityEffects.isEmpty()) {
-+            return false;
-+        }
-+        // ShreddedPaper end - reduce enchantment allocations
-         LootContext context = damageContext(serverLevel, enchantmentLevel, victim, source);
- 
--        for (ConditionalEffect<DamageImmunity> filteredEffect : this.getEffects(EnchantmentEffectComponents.DAMAGE_IMMUNITY)) {
-+        for (ConditionalEffect<DamageImmunity> filteredEffect : damageImmunityEffects) { // ShreddedPaper - reduce enchantment allocations
-             if (filteredEffect.matches(context)) {
-                 return true;
-             }
-@@ -403,8 +409,14 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
-     }
- 
-     public void tick(final ServerLevel serverLevel, final int enchantmentLevel, final EnchantedItemInUse item, final Entity entity) {
-+        // ShreddedPaper start - reduce enchantment allocations
-+        List<ConditionalEffect<EnchantmentEntityEffect>> tickEffects = this.getEffects(EnchantmentEffectComponents.TICK);
-+        if (tickEffects.isEmpty()) {
-+            return;
-+        }
-         applyEffects(
--            this.getEffects(EnchantmentEffectComponents.TICK),
-+            tickEffects,
-+        // ShreddedPaper end - reduce enchantment allocations
-             entityContext(serverLevel, enchantmentLevel, entity, entity.position()),
-             e -> e.apply(serverLevel, enchantmentLevel, item, entity, entity.position())
-         );
+--- a/net/minecraft/world/item/enchantment/Enchantment.java
+
++++ b/net/minecraft/world/item/enchantment/Enchantment.java
+
+@@ -124,7 +_,14 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
+
+     }
+
+ 
+
+     public boolean matchingSlot(final EquipmentSlot slot) {
+
+-        return this.definition.slots().stream().anyMatch(group -> group.test(slot));
+
++        // ShreddedPaper start - Remove stream in matchingSlot
+
++        for (EquipmentSlotGroup group : this.definition.slots()) {
+
++            if (group.test(slot)) {
+
++                return true;
+
++            }
+
++        }
+
++        return false;
+
++        // ShreddedPaper end - Remove stream in matchingSlot
+
+     }
+
+ 
+
+     public boolean isPrimaryItem(final ItemStack item) {
+
+@@ -199,9 +_,15 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
+
+     }
+
+ 
+
+     public boolean isImmuneToDamage(final ServerLevel serverLevel, final int enchantmentLevel, final Entity victim, final DamageSource source) {
+
++        // ShreddedPaper start - reduce enchantment allocations
+
++        List<ConditionalEffect<DamageImmunity>> damageImmunityEffects = this.getEffects(EnchantmentEffectComponents.DAMAGE_IMMUNITY);
+
++        if (damageImmunityEffects.isEmpty()) {
+
++            return false;
+
++        }
+
++        // ShreddedPaper end - reduce enchantment allocations
+
+         LootContext context = damageContext(serverLevel, enchantmentLevel, victim, source);
+
+ 
+
+-        for (ConditionalEffect<DamageImmunity> filteredEffect : this.getEffects(EnchantmentEffectComponents.DAMAGE_IMMUNITY)) {
+
++        for (ConditionalEffect<DamageImmunity> filteredEffect : damageImmunityEffects) { // ShreddedPaper - reduce enchantment allocations
+
+             if (filteredEffect.matches(context)) {
+
+                 return true;
+
+             }
+
+@@ -403,8 +_,14 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti
+
+     }
+
+ 
+
+     public void tick(final ServerLevel serverLevel, final int enchantmentLevel, final EnchantedItemInUse item, final Entity entity) {
+
++        // ShreddedPaper start - reduce enchantment allocations
+
++        List<ConditionalEffect<EnchantmentEntityEffect>> tickEffects = this.getEffects(EnchantmentEffectComponents.TICK);
+
++        if (tickEffects.isEmpty()) {
+
++            return;
+
++        }
+
+         applyEffects(
+
+-            this.getEffects(EnchantmentEffectComponents.TICK),
+
++            tickEffects,
+
++        // ShreddedPaper end - reduce enchantment allocations
+
+             entityContext(serverLevel, enchantmentLevel, entity, entity.position()),
+
+             e -> e.apply(serverLevel, enchantmentLevel, item, entity, entity.position())
+
+         );
+
